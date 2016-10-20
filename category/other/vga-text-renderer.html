@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" id="page"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"><meta charset="utf-8"/><meta name="viewport" content="width=device-width"/><title>VGA text renderer - Other  - Haxe Code Cookbook</title><base href="./../.."/>
+<link rel="stylesheet" type="text/css" href="http://haxe.org/css/bootstrap.min.css"/><link rel="stylesheet" type="text/css" href="css/styles.min.css"/><link rel="icon" href="http://haxe.org/favicon.ico"/><link rel="canonical" href="http://code.haxe.org/category/other"/><meta name="description" content="This entry came to be after Haxe user anniz shared his experiment which aimed to recreate VGA text rendering in Flash. Soon after, it was proposed and discussed as a potential Code Cookbook entry. You can read more about its history in this repository issue."/>
+<meta name="twitter:creator" content="@haxe_org"/>
+<meta property="og:title" content="VGA text renderer - Other  - Haxe Code Cookbook"/><meta property="og:description" content="This entry came to be after Haxe user anniz shared his experiment which aimed to recreate VGA text rendering in Flash. Soon after, it was proposed and discussed as a potential Code Cookbook entry. You can read more about its history in this repository issue."/><meta property="og:type" content="article"/><meta property="og:url" content="http://code.haxe.org/category/other"/><meta property="og:image" content="http://code.haxe.org/img/share.png"/><meta property="article:publisher" content="haxe.org"/><meta property="article:published_time" content="2016-10-11 00:00:00"/><meta property="article:modified_time" content="2016-10-12 00:00:00"/><meta property="article:section " content="technology"/><meta property="article:tag" content="javascript,canvas,binary"/><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,700italic,400italic" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400" rel="stylesheet" type="text/css"/></head><body><nav class="section nav dark"><div class="navbar navbar-fixed-top navbar-inverse"><div class="navbar-inner"><button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="brand haxe-logo" href="https://haxe.org/"><img alt="Haxe" height="21" onerror="this.src='http://haxe.org/img/haxe-logo-horizontal-on-dark.png'" src="http://haxe.org/img/haxe-logo-horizontal-on-dark.svg" width="107"/></a><a class="brand sub ide" href="./">CODE</a><div class="nav-collapse collapse"><ul class="nav">
+<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-book"></i> Browse <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="category/beginner/">Beginner <small class="category-count">(10)</small></a></li><li><a href="category/compilation/">Compilation <small class="category-count">(1)</small></a></li><li><a href="category/data-structures/">Data structures <small class="category-count">(4)</small></a></li><li><a href="category/macros/">Macros <small class="category-count">(15)</small></a></li><li class="active"><a href="category/other/">Other <small class="category-count">(6)</small></a></li><li><a href="category/abstract-types/">Abstract types <small class="category-count">(5)</small></a></li><li><a href="category/design-patterns/">Design patterns <small class="category-count">(3)</small></a></li><li><a href="category/principles/">Principles <small class="category-count">(3)</small></a></li></ul></li><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tags"></i> Tags <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="tag/macro-function.html" rel="tag"><i class="fa fa-tag"></i> macro function <small class="category-count">(9)</small></a></li><li><a href="tag/iterator.html" rel="tag"><i class="fa fa-tag"></i> iterator <small class="category-count">(3)</small></a></li><li><a href="tag/enum.html" rel="tag"><i class="fa fa-tag"></i> enum <small class="category-count">(3)</small></a></li><li><a href="tag/validation.html" rel="tag"><i class="fa fa-tag"></i> validation <small class="category-count">(3)</small></a></li><li><a href="tag/building-fields.html" rel="tag"><i class="fa fa-tag"></i> building fields <small class="category-count">(6)</small></a></li><li><a href="tag/collections.html" rel="tag"><i class="fa fa-tag"></i> collections <small class="category-count">(2)</small></a></li><li><a href="tag/build-macro.html" rel="tag"><i class="fa fa-tag"></i> build macro <small class="category-count">(6)</small></a></li><li><a href="tag/math.html" rel="tag"><i class="fa fa-tag"></i> math <small class="category-count">(2)</small></a></li><li><a href="tag/dead-code-elimination.html" rel="tag"><i class="fa fa-tag"></i> dead code elimination <small class="category-count">(3)</small></a></li><li><a href="tag/abstract-type.html" rel="tag"><i class="fa fa-tag"></i> abstract type <small class="category-count">(6)</small></a></li><li><a href="tag/ereg.html" rel="tag"><i class="fa fa-tag"></i> ereg <small class="category-count">(2)</small></a></li><li><a href="tag/data-structures.html" rel="tag"><i class="fa fa-tag"></i> data structures <small class="category-count">(2)</small></a></li><li><a href="tag/javascript.html" rel="tag"><i class="fa fa-tag"></i> javascript <small class="category-count">(3)</small></a></li><li><a href="tag/pattern-matching.html" rel="tag"><i class="fa fa-tag"></i> pattern matching <small class="category-count">(2)</small></a></li><li><a href="tag/class.html" rel="tag"><i class="fa fa-tag"></i> class <small class="category-count">(3)</small></a></li><li><a href="tag/arguments.html" rel="tag"><i class="fa fa-tag"></i> arguments <small class="category-count">(2)</small></a></li><li><a href="tag/conditional-compilation.html" rel="tag"><i class="fa fa-tag"></i> conditional compilation <small class="category-count">(2)</small></a></li><li><a href="tag/libraries.html" rel="tag"><i class="fa fa-tag"></i> libraries <small class="category-count">(2)</small></a></li><li><a href="tag/static-extension.html" rel="tag"><i class="fa fa-tag"></i> static extension <small class="category-count">(2)</small></a></li></ul></li><li class="divider"></li>
+<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/documentation/">Learn Haxe <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://haxe.org/documentation/" rel="external">Introduction</a></li><li class="divider"></li><li><a href="https://haxe.org/manual/" rel="external">Manual</a></li><li><a href="http://api.haxe.org" rel="external">API Documentation</a></li><li class="divider"></li><li><a href="http://try.haxe.org" rel="external">Try Haxe</a></li><li><a href="https://lib.haxe.org" rel="external">Haxelib</a></li><li class="active"><a href="http://code.haxe.org" rel="external">Code Cookbook</a></li></ul></li><li class=" dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Connect <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://github.com/HaxeFoundation" rel="external"><i class="fa fa-github"></i> Github</a></li><li><a href="https://github.com/HaxeFoundation/haxe/issues" rel="external"><i class="fa fa-github"></i> Bug reports</a></li><li><a href="http://stackoverflow.com/questions/tagged/haxe" rel="external"><i class="fa fa-stack-exchange"></i> Stack Overflow</a></li><li><a href="http://groups.google.com/group/haxelang?hl=en" rel="external"><i class="fa fa-envelope-o"></i> Google Groups</a></li><li><a href="http://webchat.freenode.net/?channels=haxe" rel="external nofollow"><i class="fa fa-comments-o"></i> IRC</a></li><li><a href="https://haxe.org/blog" rel="external"><i class="fa fa-rss"></i> Blog</a></li><li class="divider"></li><li><a href="https://plus.google.com/communities/103302587329918132234" rel="external"><i class="fa fa-google-plus"></i> Google+</a></li><li><a href="https://www.facebook.com/haxe.org/" rel="external"><i class="fa fa-facebook"></i> Facebook</a></li><li><a href="https://twitter.com/search?q=%23haxe" rel="external"><i class="fa fa-twitter"></i> #haxe</a></li><li><a href="https://twitter.com/haxelang" rel="external"><i class="fa fa-twitter"></i> @haxelang</a></li><li><a href="https://twitter.com/haxe_org" rel="external"><i class="fa fa-twitter"></i> @haxe_org</a></li><li class="divider"></li><li><a href="https://haxe.org/foundation/contact.html" rel="external">Contact</a></li></ul></li></ul></div></div></div></nav><div class="main-content"><header class="hero-unit-small"><div class="container"><div class="row"><div id="title">Haxe Code Cookbook</div></div></div></header><main class="container"><section class="row"><nav class="span4 sidebar-toc" id="sidebar"><h3>Table of contents</h3><ul class="unstyled" itemscope="itemscope" itemtype="http://schema.org/BreadcrumbList"><br/><li><a href="category/beginner/">Beginner</a><ul class="unstyled"><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/arrays.html" itemprop="item"><span itemprop="name">Using arrays</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/conditional-compilation.html" itemprop="item"><span itemprop="name">Conditional compilation</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/declare-classes.html" itemprop="item"><span itemprop="name">Declare classes</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/declare-functions.html" itemprop="item"><span itemprop="name">Declare functions</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/hello-world.html" itemprop="item"><span itemprop="name">Hello world</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/lists.html" itemprop="item"><span itemprop="name">Using lists</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/numbers-floats-ints.html" itemprop="item"><span itemprop="name">Using numbers</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/regular-expressions.html" itemprop="item"><span itemprop="name">Using regular expressions</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/string-variable-reflection.html" itemprop="item"><span itemprop="name">Access a field using a string</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/beginner/using-static-extensions.html" itemprop="item"><span itemprop="name">Using static extensions</span></a></li></ul></li><br/><li><a href="category/compilation/">Compilation</a><ul class="unstyled"><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/compilation/compiling-libraries-without-main-class.html" itemprop="item"><span itemprop="name">Compiling libraries without main class</span></a></li></ul></li><br/><li><a href="category/data-structures/">Data structures</a><ul class="unstyled"><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/data-structures/grid-iterator.html" itemprop="item"><span itemprop="name">Grid iterator</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/data-structures/reverse-iterator.html" itemprop="item"><span itemprop="name">Reverse iterator</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/data-structures/sort-array.html" itemprop="item"><span itemprop="name">Sorting arrays</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/data-structures/step-iterator.html" itemprop="item"><span itemprop="name">Stepped iterator</span></a></li></ul></li><br/><li><a href="category/macros/">Macros</a><ul class="unstyled"><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/add-git-commit-hash-in-build.html" itemprop="item"><span itemprop="name">Add git commit-hash in build</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/add-parameters-as-fields.html" itemprop="item"><span itemprop="name">Add parameters as fields</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/assert-with-values.html" itemprop="item"><span itemprop="name">Assert macro that shows sub-expression values</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/build-map.html" itemprop="item"><span itemprop="name">Add a map</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/build-property-with-inline-getter.html" itemprop="item"><span itemprop="name">Add property with getter</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/build-static-field.html" itemprop="item"><span itemprop="name">Add a static field</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/build-value-objects.html" itemprop="item"><span itemprop="name">Create value-objects</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/combine-objects.html" itemprop="item"><span itemprop="name">Combine two or more structures</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/completion-from-url.html" itemprop="item"><span itemprop="name">Code completion from URL</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/enum-abstract-values.html" itemprop="item"><span itemprop="name">Get all values of an @:enum abstract</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/extract-enum-value.html" itemprop="item"><span itemprop="name">Extract values from known enum instances</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/generate-dispatch-code.html" itemprop="item"><span itemprop="name">Generate dispatch code</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/generating-code-in-a-macro.html" itemprop="item"><span itemprop="name">Generating code in a macro</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/get-compiler-define-value.html" itemprop="item"><span itemprop="name">Working with compiler flags</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/macros/validate-json.html" itemprop="item"><span itemprop="name">Validates a .JSON file compile-time</span></a></li></ul></li><br/><li><a href="category/other/" class="active">Other</a><ul class="unstyled"><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/other/adding-static-methods-to-existing-classes.html" itemprop="item"><span itemprop="name">Adding static methods to existing classes</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/other/named-parameters.html" itemprop="item"><span itemprop="name">Named Parameters</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/other/passing-different-types-to-a-function-parameter.html" itemprop="item"><span itemprop="name">Passing different types to a function parameter</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/other/using-filesystem.html" itemprop="item"><span itemprop="name">Using the file system</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/other/using-haxe-classes-in-javascript.html" itemprop="item"><span itemprop="name">Using Haxe classes in JavaScript</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem" class="active"><a href="category/other/vga-text-renderer.html" itemprop="item"><span itemprop="name">VGA text renderer</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/other/working-with-cppia/index.html" itemprop="item"><span itemprop="name">Working with cppia</span></a></li></ul></li><br/><li><a href="category/abstract-types/">Abstract types</a><ul class="unstyled"><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/abstract-types/abstracts-with-type-params.html" itemprop="item"><span itemprop="name">Strict typing for stringly-typed extern code</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/abstract-types/color.html" itemprop="item"><span itemprop="name">Color as abstract type</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/abstract-types/emailaddress.html" itemprop="item"><span itemprop="name">Email address as abstract type</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/abstract-types/rounded-float.html" itemprop="item"><span itemprop="name">Rounded Float as abstract type</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/abstract-types/temperature-units.html" itemprop="item"><span itemprop="name">Temperature units as abstract type</span></a></li></ul></li><br/><li><a href="category/design-patterns/">Design patterns</a><ul class="unstyled"><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/design-patterns/factory.html" itemprop="item"><span itemprop="name">Factory</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/design-patterns/lazy-initialization.html" itemprop="item"><span itemprop="name">Lazy initialization</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/design-patterns/singleton.html" itemprop="item"><span itemprop="name">Singleton</span></a></li></ul></li><br/><li><a href="category/principles/">Principles</a><ul class="unstyled"><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/principles/everything-is-an-expression.html" itemprop="item"><span itemprop="name">Everything is an expression</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/principles/inheritance.html" itemprop="item"><span itemprop="name">Inheritance</span></a></li><li itemprop="itemListElement" itemscope="itemscope" itemtype="http://schema.org/ListItem"><a href="category/principles/null-safety.html" itemprop="item"><span itemprop="name">Null safety</span></a></li></ul></li><br/></ul></nav><article class="span8" itemscope="itemscope" itemtype="http://schema.org/Article"><h1><a href="http://code.haxe.org/category/other" itemprop="url" class="anchorjs-icons"></a> <span itemprop="name">VGA text renderer</span></h1><div itemprop="articleBody"><blockquote>
+<p>This entry came to be after Haxe user anniz shared his experiment which aimed to recreate VGA text rendering in Flash. Soon after, it was proposed and discussed as a potential Code Cookbook entry. You can read more about its history in <a href="https://github.com/HaxeFoundation/code-cookbook/issues/55">this repository issue</a>.</p></blockquote>
+<h2>Why VGA?</h2>
+<p>For the uninitiated, VGA (Video Graphics Array) is an analog computer display standard developed by IBM, and first introduced in 1987. It may seem strange to talk about it in this context, but in reality it's just a backdrop to what we're actually doing - rendering text as a raster graphic.</p>
+<h2>How does VGA text work?</h2>
+<p>The characters in a VGA font are defined as a monochromatic raster graphic - a rectangular grid of pixels, where the color of every pixel depends on the value of a single bit.</p>
+<p>Let's consider a monospaced VGA font with an 8x8 character size. Accordingly, we'll draw an 8x8 grid. The top left corner of the grid will be the grid's origin point, set at (0, 0). Now let's fill out grid fields in such a way that the grid represents the 'A' character.</p>
+<p>If we take a better look at the grid, we can see that the character can be stored in eight 8-bit binary (base-2) numbers, where every row of the character raster is represented by its own binary number. These numbers are written out relative to the origin point of the grid. In this case, we're writing the numbers down left-to-right, so the convention is that the least significant bit comes first. With that in mind, we can simplify things by performing a conversion to hex (base-16).</p>
+<pre><code>  0 1 2 3 4 5 6 7      BINARY        HEX
+0 . # # # # # # .  =&gt;  01111110  =&gt;  0x7E
+1 . # # # # # # .  =&gt;  01111110  =&gt;  0x7E
+2 . # # . . # # .  =&gt;  01100110  =&gt;  0x66
+3 . # # # # # # .  =&gt;  01111110  =&gt;  0x7E
+4 . # # # # # # .  =&gt;  01111110  =&gt;  0x7E
+5 . # # . . # # .  =&gt;  01100110  =&gt;  0x66
+6 . # # . . # # .  =&gt;  01100110  =&gt;  0x66
+7 . . . . . . . .  =&gt;  00000000  =&gt;  0x00</code></pre>
+<p>The 'A' character raster can thus be described by an array of its rows, as <code>[0x7E, 0x7E, 0x66, 0x7E, 0x7E, 0x66, 0x66, 0x00]</code> (from top to bottom).</p>
+<p>A VGA font is an array of such character rasters. Ideally, their order in the font array should be determined by their character codes, which makes it easier to fetch the proper character raster for drawing. For example, an ASCII font character set could be placed in an array like this:</p>
+<pre><code>var font = [
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0,   null
+    ...,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 32,  space
+    0x18, 0x18, 0x18, 0x18, 0x18, 0x00, 0x18, 0x00, // 33,  !
+    ...
+    0x7E, 0X7E, 0X66, 0X66, 0X7E, 0X66, 0X66, 0X00, // 65,  A
+    ...
+];</code></pre>
+<p>Keep in mind that <em>convention is important</em>. Whether the least significant bit comes first or last has an impact on how the character is drawn - specifically, the character will appear to be mirrored.</p>
+<h2>How does one draw VGA text?</h2>
+<p>VGA text is drawn character by character. For a given text string, its characters are iterated over, and their character codes are retrieved. These character codes are then used as indexes for the font array, to get the first row of the character raster that is to be drawn. The number of raster rows drawn depends on the character size.</p>
+<p>For every column (bit) in the row, a check is made to determine whether the bit is set to 1 or 0. Depending on the value, a white or black color is assigned to the pixel of the image (screen).</p>
+<p>A function which demonstrates the principle of drawing VGA characters is given below:</p>
+<pre><code class="prettyprint haxe">/**
+ * Renders a character from a provided ASCII character set at (x, y) position on image.
+ * @param   charCode    ASCII character code
+ * @param   charSize    Character size (assumed monospaced font)
+ * @param   font        Font as ASCII character array
+ * @param   x           Horizontal position of character's top-left corner on image
+ * @param   y           Vertical position of character's top-left corner on image
+ * @param   image       The image the character will be rendered to
+ */
+function renderAsciiChar(charCode : Int, charSize : Int, font : Array&lt;Int&gt;, x : Int, y : Int, image : Image) : Void {
+    // Compute index of the character raster's first row in the font array
+    var index = charCode * charSize;
+    // Iterate over character raster rows
+    for (charRow in 0...charSize) {
+        // Read character raster row bits
+        var rowBits = font[index + charRow];
+        // Iterate over character raster row bits (columns)
+        for (charColumn in 0...charSize) {
+            // Isolate a single bit from the row bits
+            // Note: this depends on convention!
+            var bit = (rowBits &lt;&lt; charcolumn) &amp; 0x80;
+            // 1 = white, 0 = black
+            var color = (bit == 0x80) ? 0xffffffff : 0xff000000;
+            // Set pixel on image
+            image.setPixel(x + charColumn, y + charRow, color);
+        }
+    }
+}</code></pre>
+<p>The actual implementation is only slightly different from the above function, as changes have to be made to accomodate the drawing API of a given platform.</p>
+<h2>Example</h2>
+<pre><code class="prettyprint haxe">import js.html.CanvasRenderingContext2D;
+import js.html.ImageData;
+import js.Browser;
+
+class Test {
+    // ASCII character set, as monospaced 8x8 characters
+    static var Font = [
+        0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+        0x7E,0x81,0xA5,0x81,0xBD,0x99,0x81,0x7E,
+        0x7E,0xFF,0x00,0xFF,0xC3,0xE7,0xFF,0x7E,
+        0x6C,0xFE,0xFE,0xFE,0x7C,0x38,0x10,0x00,
+        0x10,0x38,0x7C,0xFE,0x7C,0x38,0x10,0x00,
+        0x38,0x7C,0x38,0xFE,0xFE,0x92,0x10,0x7C,
+        0x00,0x10,0x38,0x7C,0xFE,0x7C,0x38,0x7C,
+        0x00,0x00,0x18,0x3C,0x3C,0x18,0x00,0x00,
+        0xFF,0xFF,0xE7,0xC3,0xC3,0xE7,0xFF,0xFF,
+        0x00,0x3C,0x66,0x42,0x42,0x66,0x3C,0x00,
+        0xFF,0xC3,0x99,0xBD,0xBD,0x99,0xC3,0xFF,
+        0x0F,0x07,0x0F,0x7D,0xCC,0xCC,0xCC,0x78,
+        0x3C,0x66,0x66,0x66,0x3C,0x18,0x7E,0x18,
+        0x3F,0x33,0x3F,0x30,0x30,0x70,0xF0,0xE0,
+        0x7F,0x63,0x7F,0x63,0x63,0x67,0xE6,0xC0,
+        0x99,0x5A,0x3C,0xE7,0xE7,0x3C,0x5A,0x99,
+        0x80,0xE0,0xF8,0xFE,0xF8,0xE0,0x80,0x00,
+        0x02,0x0E,0x3E,0xFE,0x3E,0x0E,0x02,0x00,
+        0x18,0x3C,0x7E,0x18,0x18,0x7E,0x3C,0x18,
+        0x66,0x66,0x66,0x66,0x66,0x00,0x66,0x00,
+        0x7F,0x00,0x00,0x7B,0x1B,0x1B,0x1B,0x00,
+        0x3E,0x63,0x38,0x6C,0x6C,0x38,0x86,0xFC,
+        0x00,0x00,0x00,0x00,0x7E,0x7E,0x7E,0x00,
+        0x18,0x3C,0x7E,0x18,0x7E,0x3C,0x18,0xFF,
+        0x18,0x3C,0x7E,0x18,0x18,0x18,0x18,0x00,
+        0x18,0x18,0x18,0x18,0x7E,0x3C,0x18,0x00,
+        0x00,0x18,0x0C,0xFE,0x0C,0x18,0x00,0x00,
+        0x00,0x30,0x60,0xFE,0x60,0x30,0x00,0x00,
+        0x00,0x00,0xC0,0xC0,0xC0,0xFE,0x00,0x00,
+        0x00,0x24,0x66,0xFF,0x66,0x24,0x00,0x00,
+        0x00,0x18,0x3C,0x7E,0xFF,0xFF,0x00,0x00,
+        0x00,0xFF,0xFF,0x7E,0x3C,0x18,0x00,0x00,
+        0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+        0x18,0x3C,0x3C,0x18,0x18,0x00,0x18,0x00,
+        0x6C,0x6C,0x6C,0x00,0x00,0x00,0x00,0x00,
+        0x6C,0x6C,0xFE,0x6C,0xFE,0x6C,0x6C,0x00,
+        0x18,0x7E,0xC0,0x7C,0x06,0xFC,0x18,0x00,
+        0x00,0xC6,0xCC,0x18,0x30,0x66,0xC6,0x00,
+        0x38,0x6C,0x38,0x76,0xDC,0xCC,0x76,0x00,
+        0x30,0x30,0x60,0x00,0x00,0x00,0x00,0x00,
+        0x18,0x30,0x60,0x60,0x60,0x30,0x18,0x00,
+        0x60,0x30,0x18,0x18,0x18,0x30,0x60,0x00,
+        0x00,0x66,0x3C,0xFF,0x3C,0x66,0x00,0x00,
+        0x00,0x18,0x18,0x7E,0x18,0x18,0x00,0x00,
+        0x00,0x00,0x00,0x00,0x00,0x18,0x18,0x30,
+        0x00,0x00,0x00,0x7E,0x00,0x00,0x00,0x00,
+        0x00,0x00,0x00,0x00,0x00,0x18,0x18,0x00,
+        0x06,0x0C,0x18,0x30,0x60,0xC0,0x80,0x00,
+        0x7C,0xCE,0xDE,0xF6,0xE6,0xC6,0x7C,0x00,
+        0x30,0x70,0x30,0x30,0x30,0x30,0xFC,0x00,
+        0x78,0xCC,0x0C,0x38,0x60,0xCC,0xFC,0x00,
+        0x78,0xCC,0x0C,0x38,0x0C,0xCC,0x78,0x00,
+        0x1C,0x3C,0x6C,0xCC,0xFE,0x0C,0x1E,0x00,
+        0xFC,0xC0,0xF8,0x0C,0x0C,0xCC,0x78,0x00,
+        0x38,0x60,0xC0,0xF8,0xCC,0xCC,0x78,0x00,
+        0xFC,0xCC,0x0C,0x18,0x30,0x30,0x30,0x00,
+        0x78,0xCC,0xCC,0x78,0xCC,0xCC,0x78,0x00,
+        0x78,0xCC,0xCC,0x7C,0x0C,0x18,0x70,0x00,
+        0x00,0x18,0x18,0x00,0x00,0x18,0x18,0x00,
+        0x00,0x18,0x18,0x00,0x00,0x18,0x18,0x30,
+        0x18,0x30,0x60,0xC0,0x60,0x30,0x18,0x00,
+        0x00,0x00,0x7E,0x00,0x7E,0x00,0x00,0x00,
+        0x60,0x30,0x18,0x0C,0x18,0x30,0x60,0x00,
+        0x3C,0x66,0x0C,0x18,0x18,0x00,0x18,0x00,
+        0x7C,0xC6,0xDE,0xDE,0xDC,0xC0,0x7C,0x00,
+        0x30,0x78,0xCC,0xCC,0xFC,0xCC,0xCC,0x00,
+        0xFC,0x66,0x66,0x7C,0x66,0x66,0xFC,0x00,
+        0x3C,0x66,0xC0,0xC0,0xC0,0x66,0x3C,0x00,
+        0xF8,0x6C,0x66,0x66,0x66,0x6C,0xF8,0x00,
+        0xFE,0x62,0x68,0x78,0x68,0x62,0xFE,0x00,
+        0xFE,0x62,0x68,0x78,0x68,0x60,0xF0,0x00,
+        0x3C,0x66,0xC0,0xC0,0xCE,0x66,0x3A,0x00,
+        0xCC,0xCC,0xCC,0xFC,0xCC,0xCC,0xCC,0x00,
+        0x78,0x30,0x30,0x30,0x30,0x30,0x78,0x00,
+        0x1E,0x0C,0x0C,0x0C,0xCC,0xCC,0x78,0x00,
+        0xE6,0x66,0x6C,0x78,0x6C,0x66,0xE6,0x00,
+        0xF0,0x60,0x60,0x60,0x62,0x66,0xFE,0x00,
+        0xC6,0xEE,0xFE,0xFE,0xD6,0xC6,0xC6,0x00,
+        0xC6,0xE6,0xF6,0xDE,0xCE,0xC6,0xC6,0x00,
+        0x38,0x6C,0xC6,0xC6,0xC6,0x6C,0x38,0x00,
+        0xFC,0x66,0x66,0x7C,0x60,0x60,0xF0,0x00,
+        0x7C,0xC6,0xC6,0xC6,0xD6,0x7C,0x0E,0x00,
+        0xFC,0x66,0x66,0x7C,0x6C,0x66,0xE6,0x00,
+        0x7C,0xC6,0xE0,0x78,0x0E,0xC6,0x7C,0x00,
+        0xFC,0xB4,0x30,0x30,0x30,0x30,0x78,0x00,
+        0xCC,0xCC,0xCC,0xCC,0xCC,0xCC,0xFC,0x00,
+        0xCC,0xCC,0xCC,0xCC,0xCC,0x78,0x30,0x00,
+        0xC6,0xC6,0xC6,0xC6,0xD6,0xFE,0x6C,0x00,
+        0xC6,0xC6,0x6C,0x38,0x6C,0xC6,0xC6,0x00,
+        0xCC,0xCC,0xCC,0x78,0x30,0x30,0x78,0x00,
+        0xFE,0xC6,0x8C,0x18,0x32,0x66,0xFE,0x00,
+        0x78,0x60,0x60,0x60,0x60,0x60,0x78,0x00,
+        0xC0,0x60,0x30,0x18,0x0C,0x06,0x02,0x00,
+        0x78,0x18,0x18,0x18,0x18,0x18,0x78,0x00,
+        0x10,0x38,0x6C,0xC6,0x00,0x00,0x00,0x00,
+        0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,
+        0x30,0x30,0x18,0x00,0x00,0x00,0x00,0x00,
+        0x00,0x00,0x78,0x0C,0x7C,0xCC,0x76,0x00,
+        0xE0,0x60,0x60,0x7C,0x66,0x66,0xDC,0x00,
+        0x00,0x00,0x78,0xCC,0xC0,0xCC,0x78,0x00,
+        0x1C,0x0C,0x0C,0x7C,0xCC,0xCC,0x76,0x00,
+        0x00,0x00,0x78,0xCC,0xFC,0xC0,0x78,0x00,
+        0x38,0x6C,0x64,0xF0,0x60,0x60,0xF0,0x00,
+        0x00,0x00,0x76,0xCC,0xCC,0x7C,0x0C,0xF8,
+        0xE0,0x60,0x6C,0x76,0x66,0x66,0xE6,0x00,
+        0x30,0x00,0x70,0x30,0x30,0x30,0x78,0x00,
+        0x0C,0x00,0x1C,0x0C,0x0C,0xCC,0xCC,0x78,
+        0xE0,0x60,0x66,0x6C,0x78,0x6C,0xE6,0x00,
+        0x70,0x30,0x30,0x30,0x30,0x30,0x78,0x00,
+        0x00,0x00,0xCC,0xFE,0xFE,0xD6,0xD6,0x00,
+        0x00,0x00,0xB8,0xCC,0xCC,0xCC,0xCC,0x00,
+        0x00,0x00,0x78,0xCC,0xCC,0xCC,0x78,0x00,
+        0x00,0x00,0xDC,0x66,0x66,0x7C,0x60,0xF0,
+        0x00,0x00,0x76,0xCC,0xCC,0x7C,0x0C,0x1E,
+        0x00,0x00,0xDC,0x76,0x62,0x60,0xF0,0x00,
+        0x00,0x00,0x7C,0xC0,0x70,0x1C,0xF8,0x00,
+        0x10,0x30,0xFC,0x30,0x30,0x34,0x18,0x00,
+        0x00,0x00,0xCC,0xCC,0xCC,0xCC,0x76,0x00,
+        0x00,0x00,0xCC,0xCC,0xCC,0x78,0x30,0x00,
+        0x00,0x00,0xC6,0xC6,0xD6,0xFE,0x6C,0x00,
+        0x00,0x00,0xC6,0x6C,0x38,0x6C,0xC6,0x00,
+        0x00,0x00,0xCC,0xCC,0xCC,0x7C,0x0C,0xF8,
+        0x00,0x00,0xFC,0x98,0x30,0x64,0xFC,0x00,
+        0x1C,0x30,0x30,0xE0,0x30,0x30,0x1C,0x00,
+        0x18,0x18,0x18,0x00,0x18,0x18,0x18,0x00,
+        0xE0,0x30,0x30,0x1C,0x30,0x30,0xE0,0x00,
+        0x76,0xDC,0x00,0x00,0x00,0x00,0x00,0x00,
+        0x00,0x10,0x38,0x6C,0xC6,0xC6,0xFE,0x00
+    ];
+
+    /**
+     * Renders a letter to the image.
+     * @param   charCode    Letter character code
+     * @param   baseRow     Base row of image
+     * @param   baseCol     Base column of image
+     * @param   imageData   Image data
+     */ 
+    public static function pcRenderLetter(charCode:Int, baseRow:Int, baseCol:Int, imageData:ImageData) {
+        // Calculate character index in font character array
+        // Shifting by 3 to the left is equal to multiplying by 2^3
+        var baseIndex = charCode &lt;&lt; 3;
+        // Iterate over character raster rows
+        for (curRow in 0...8) {
+            // Get character raster row bits
+            var rowBits = Font[baseIndex + curRow];
+            // Iterate over character raster row bits (columns)
+            for (curCol in 0...8) {
+                // Calculate position of pixel on image
+                var x = baseCol+curCol + 2;
+                var y = baseRow+curRow + 2;
+                // Calculate pixel index in image data array
+                var index = (y * 320 + x) * 4;
+                // Determine pixel color based on current bit value
+                var channel = (((rowBits &lt;&lt; curCol) &amp; 0x80) == 0x80)? 255 : 0;
+                // Set pixel
+                imageData.data[index + 0] = channel;
+                imageData.data[index + 1] = channel;
+                imageData.data[index + 2] = channel;
+                imageData.data[index + 3] = 255;
+            }
+        }
+    }
+    
+    /**
+     * Main function, the application's entry point.
+     */
+    public static function main() {
+        // Create canvas element
+        var canvas = js.Browser.document.createCanvasElement();
+        canvas.width = 320;
+        canvas.height = 200;
+        canvas.style.background = "#000";
+        // Get canvas' 2D rendering context
+        var ctx:CanvasRenderingContext2D = canvas.getContext2d();
+        // Set message lines to be drawn to canvas
+        var msgLines = [
+            'echo "  _  _   _   __  _____ "',
+            'echo " | || | /_\\  \\ \\/ / __|"',
+            'echo " | __ |/ _ \\  &gt;  &lt;| __|"',
+            'echo " |_||_/_/ \\_\\/_/\\_\\___|"',
+            'echo "                       "',
+        ];
+        // Get image data from rendering context
+        var imageData = ctx.getImageData(0,0, canvas.width, canvas.height);
+        // Set delay before initiating text rendering
+        var delay = 0;
+        // Iterate over all message lines
+        for(max in 0...msgLines.length) {
+            // Render line with a delay
+            haxe.Timer.delay(function() {
+                // Clear canvas
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                // Iterate over message lines that were drawn up to now
+                // We're redrawing them because we're clearing the canvas 
+                for (j in 0...max+1) {
+                    // Get the message line string
+                    var msgStr = msgLines[j];
+                    // Iterate over message line characters
+                    for (i in 0...msgStr.length) {
+                        // Get character code
+                        var c = msgStr.charCodeAt(i);
+                        // Render letter
+                        pcRenderLetter(c, (j&gt;&gt;1) + (j&lt;&lt;3), (i&gt;&gt;1) + (i&lt;&lt;3), imageData);
+                    }
+                }
+                // Draw to canvas
+                ctx.putImageData(imageData, 0,0);
+            }, delay += 650);
+        }
+        // Append canvas to document body
+        Browser.document.body.appendChild(canvas);
+    }
+}</code></pre>
+<h2>Result</h2><iframe src="http://try.haxe.org/embed/2CA95" class="try-haxe"><a href="http://try.haxe.org/embed/2CA95">Try Haxe!</a></iframe>
+<blockquote>
+<p>Read more about VGA fonts <a href="http://int10h.org/oldschool-pc-fonts/fontlist/">here</a>.</p>
+<p>Author: anniz (Original Flash code)</p>
+<p>Author: <a href="http://github.com/markknol">Mark Knol</a> (Canvas port)</p>
+<p>Author:<span itemprop="author" itemscope="itemscope" itemtype="https://schema.org/Person"> <a href="http://github.com/dstrekelj" itemprop="url" rel="external"><span itemprop="name">Domagoj Štrekelj</span></a> (Cookbook entry)</span></p></blockquote></div><time datetime="2016-10-11 00:00:00" itemprop="datePublished" class="semantic">2016-10-11 00:00:00</time><time datetime="2016-10-12 00:00:00" itemprop="dateModified" class="semantic">2016-10-12 00:00:00</time><hr/><div>Category:  &nbsp; <span itemprop="articleSection"><i class="fa fa-book"></i>&nbsp;<a href="category/other/">Other</a></span></div><div class="tags">Tags:  &nbsp; <span itemprop="keywords"><span class="tag"><i class="fa fa-tag"></i>&nbsp;<a href="tag/javascript.html" rel="tag">javascript</a><i class="semantic">,</i></span><span class="tag"><i class="fa fa-tag"></i>&nbsp;<a href="tag/canvas.html" rel="tag">canvas</a><i class="semantic">,</i></span><span class="tag"><i class="fa fa-tag"></i>&nbsp;<a href="tag/binary.html" rel="tag">binary</a></span></span></div><hr/><div class="contribution"><span><i class="fa fa-lightbulb-o"></i> <a href="https://github.com/HaxeFoundation/code-cookbook/edit/master/./assets/content/cookbook/Other/vga-text-renderer.md" rel="external">Suggest improvement</a></span> <span>| <i class="fa fa-exclamation-circle"></i> <a href="https://github.com/HaxeFoundation/code-cookbook/issues/new?title=[VGA text renderer]&body=%0A%0ASources:%0A*%20http://code.haxe.org/category/other%0A*%20https://github.com/HaxeFoundation/code-cookbook/tree/master/./assets/content/cookbook/Other/vga-text-renderer.md" rel="external">Report issue</a></span> <span>| <i class="fa fa-plus-circle"></i> <a href="https://github.com/HaxeFoundation/code-cookbook/new/master/./assets/content/cookbook/Other/snippet-name.md/?filename=snippet-name.md" rel="external">Add new snippet</a></span> </div><hr/><div class="share-buttons">
+<script src="https://apis.google.com/js/platform.js" async="async" defer="defer"></script><div class="g-plus" data-action="share" data-annotation="bubble" style="display:inline-block"></div>&nbsp; &nbsp;
+<a href="https://twitter.com/share" class="twitter-share-button" style="display:inline-block" data-show-count="false">Tweet</a><script async="async" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>&nbsp; &nbsp;
+<div id="fb-root" style="display:inline-block"></div><script>(function(d, s, id) {var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-like" data-href="http://code.haxe.org/category/other" style="display:inline-block" data-layout="button_count" data-action="like" data-show-faces="true"></div></div></article></section></main></div><footer class="section dark site-footer"><div class="container"><div class="copyright"><p>&copy;2016&nbsp;<a class="hf-link" href="https://haxe.org/foundation/" rel="external" title="Haxe Foundation Website">Haxe Foundation</a> |&nbsp;<a href="https://github.com/HaxeFoundation/code-cookbook" title="Haxe Code Cookbook on Github" rel="external">Code Cookbook on Github</a> </p><p class="last-modified">Last modified: 20-10-2016</p></div></div></footer><link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css"/>
+
+<link rel="stylesheet" type="text/css" href="css/haxe-nav.min.css"/><script src="http://haxe.org/js/jquery.min.js"></script><script src="http://haxe.org/js/bootstrap.min.js"></script><link rel="stylesheet" type="text/css" href="css/highlighter.min.css"/><script src="js/highlighter.js"></script><script>  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');  ga('create', 'UA-74262827-2', 'auto');  ga('send', 'pageview');</script></body></html>
